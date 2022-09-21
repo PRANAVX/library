@@ -4,41 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Library</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <header></header>
+        <header class = "header">
             <h1>The Library</h1>
         </header>
-        <div id="root">
-            <button id="addbook">
-                Add Your Book
+        <main class="main">
+            <button id="addbook">Add Book
             </button>
-            
-        </div>
-        <div id="bookcontainer">
-
-        </div>
-       
-        <div class="displayform active" id="formforbook">
-            <form id = "formdata" method="post"action="#">
-                <label for="name ">Name :</label>
-                <input type="text" id="name" placeholder="Enter Book name :" value="" required>
-                <label for="author">Author :</label> 
-                <input type="text" id="author" placeholder="Enter Book's Author :" value="" required>
-                <label for="pages ">Pages :</label>
-                <input type="number" id="pages" placeholder="Enter Pages :" value="" required>
-                <label for="read" id="read-label" >Have Read?</label>
-                <input type="checkbox" id="read">
-
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+        </main>
+        <aside class="aside" id ="asideid">
+            <h2>Books</h2>
+        </aside>
     </div>
-    
-    <script src = "script.js"></script>
-    
+    <div class="form active" id="formdiv">
+        <form method="get" action ="#" id="bookform">
+            <label for="bookname">Book Name :</label>
+            <input type="text" id="bookname" name="bookname" value="" required>
+            <label for="authorname">Author's Name :</label>
+            <input type="text" id="authorname" name="authorname" value="">
+            <label for="pages">Book Name :</label>
+            <input type="number" id="pages" name="pages" value="">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>

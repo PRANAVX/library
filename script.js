@@ -1,89 +1,74 @@
-let myLibrary=[{name:"a",author:"s",pages:32,read:true},{name:"a",author:"s",pages:32,read:true},{name:"a",author:"s",pages:32,read:true}];
+let books = []
+
+const formdiv = document.getElementById("formdiv");
+const addbookbtn = document.getElementById("addbook");
+const form = document.getElementById("bookform")
+const aside = document.getElementById("asideid")
 
 
+const bookdata = function(name,authorname,pages,read){
+    name=name;
+    authorname=authorname;
+    pages=pages;
+    read=read;
+    const btn = document.createElement("button")
+    btn.setAttribute("name",name);
+    
+    btn.onclick=(e)=>{
+        deletebook(e.target.name)
+        displayBooks()
+    }
+    return{name,authorname,pages,read,btn}
+}
 
+function deletebook(x){
+    console.log(x)
 
+    books.forEach(function(book,index){
+        if(book.name==x){
+            books.splice(index,1);
+            console.log(books)
+        }
+    })
 
-const root = document.getElementById("root");
-const form = document.getElementById("formforbook");
-const formdata= document.getElementById("formdata")
-const addBook = document.getElementById("addbook");
-const bookContainer = document.getElementById("bookcontainer");
+}
 
-
-
-
-addBook.addEventListener('click',()=>formForBook());
-
-formdata.onsubmit = (e)=>{
-    root.classList.remove("hide");
-    form.classList.add("active");
-    bookContainer.innerHTML="";
-    addBookToLibrary(getData(e));
-    formdata.reset();
+form.onsubmit = function(e){
+    const x=bookdata(e.target.bookname.value,e.target.authorname.value,e.target.pages.value,false)
+    books.push(x)
+    displayForm(false);
+    displayBooks();
+    form.reset()
     return false;
 }
 
-
-    
-
-
-
-function Book(name,author,pages,read){
-    this.name=name;
-    this.author=author;
-    this.pages=pages;
-    this.read=read;
+addbookbtn.onclick = ()=>{
+    displayForm(true);
 }
 
-
-function addBookToLibrary(book){
-    myLibrary.push(book);
-    myLibrary.forEach((x)=>{displayBooks(x);
-})
-    bookContainer.setAttribute("style","grid-template-columns:1fr 1fr ; grid-template-rows:1fr 1fr 1fr;");
-}
-
-
-function displayBooks(x){
-   
-    const divBook = document.createElement("div");
-    const bname = document.createElement("p");
-    const aname = document.createElement("p");
-    const pcount = document.createElement("p");
-    const removebtn = document.createElement("button");
-    removebtn.textContent="remove";
-    bname.textContent=x.name;
-    aname.textContent=x.author;
-    pcount.textContent=x.pages;
-    divBook.appendChild(bname);
-    divBook.appendChild(aname);
-    divBook.appendChild(pcount);
-    divBook.appendChild(removebtn);
-    divBook.className="divbook";
-
-    bookContainer.appendChild(divBook);
-
-    removebtn.onclick=()=>{
-        myLibrary.splice(myLibrary.indexOf(x)-1,1);
-        bookContainer.innerHTML="";
-        myLibrary.forEach((x)=>{displayBooks(x);
-        })
-
-    } 
+function displayForm(flag){
+    if(flag==true){
+        formdiv.classList.remove("active");
+    }else{
+        formdiv.classList.add("active");
     }
-
-function formForBook(){
-    form.classList.remove("active");
-    root.classList.add("hide");
-
-}
-
-function getData(e){
-    return new Book(e.currentTarget.name.value,e.currentTarget.author.value,e.currentTarget.pages.value,e.currentTarget.read.checked)
-
+    
 }
 
 
+function displayBooks(){
+    aside.innerHTML="";
+    books.forEach(function(book){
+        const div = document.createElement("div")
+        div.classList.add("bookdiv")
+        div.innerHTML=`<br>`
+        div.innerHTML+=`Book Name - ${book.name} <br>`
+        div.innerHTML+=`Author's Name - ${book.authorname} <br>`
+        div.innerHTML+=`Pages - ${book.pages} <br> <br>`
+        book.btn.innerHTML="Delete";
+        div.appendChild(book.btn);
+        aside.appendChild(div);
 
-
+    })
+    
+}
